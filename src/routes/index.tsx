@@ -14,7 +14,7 @@ const WorldMap = lazy(() => import("@/components/weather/WorldMap").then(m => ({
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 
-const DEFAULT_CITY = { lat: 19.076, lon: 72.8777, name: "Mumbai", country: "IN" };
+const DEFAULT_CITY = { lat: 18.5204, lon: 73.8567, name: "Pune", country: "IN" };
 
 export const Route = createFileRoute("/")({
   loader: async () => {
