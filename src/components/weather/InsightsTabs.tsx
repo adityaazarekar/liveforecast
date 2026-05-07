@@ -48,34 +48,40 @@ export function InsightsTabs({ data }: { data: WeatherData }) {
   }, [tab]);
 
   return (
-    <div className="glass p-6">
-      <div className="mb-5 flex items-center justify-between flex-wrap gap-3">
-        <h2 className="text-display text-2xl" style={{ color: "var(--gold-cream)" }}>
+    <div className="glass p-4 sm:p-6">
+      <div className="mb-4 sm:mb-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <h2 className="text-display text-xl sm:text-2xl" style={{ color: "var(--gold-cream)" }}>
           Insights <span className="text-italic" style={{ color: "var(--slate-blue)" }}>·</span>{" "}
           <span className="text-italic" style={{ color: "rgba(255,255,255,0.75)" }}>{tab.toLowerCase()}</span>
         </h2>
-        <div className="relative flex gap-1 rounded-full border border-white/[0.07] bg-white/[0.03] p-1 overflow-x-auto">
-          {TABS.map((t) => (
-            <button
-              key={t}
-              ref={(el) => { tabRefs.current[t] = el; }}
-              onClick={() => setTab(t)}
-              className={`relative z-10 px-3.5 py-1.5 text-[15px] uppercase tracking-[0.18em] font-medium transition-colors duration-200 whitespace-nowrap ${
-                tab === t ? "text-[#0d0d0f]" : "text-white/60 hover:text-white/85"
-              }`}
-            >
-              {t}
-            </button>
-          ))}
-          <span
-            className="absolute top-1 bottom-1 rounded-full transition-all duration-300 ease-out"
-            style={{
-              left: indicator.left,
-              width: indicator.width,
-              background: "var(--gold-cream)",
-              boxShadow: "0 0 14px rgba(232,213,176,0.4)",
-            }}
-          />
+        {/* Scrollable tab bar — no wrapping, pills slide left/right on mobile */}
+        <div className="relative">
+          <div
+            className="flex gap-1 rounded-full border border-white/[0.07] bg-white/[0.03] p-1 overflow-x-auto"
+            style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }}
+          >
+            {TABS.map((t) => (
+              <button
+                key={t}
+                ref={(el) => { tabRefs.current[t] = el; }}
+                onClick={() => setTab(t)}
+                className={`relative z-10 px-3 py-1.5 text-[11px] sm:text-[13px] uppercase tracking-[0.15em] font-medium transition-colors duration-200 whitespace-nowrap shrink-0 rounded-full ${
+                  tab === t ? "text-[#0d0d0f]" : "text-white/60 hover:text-white/85"
+                }`}
+              >
+                {t}
+              </button>
+            ))}
+            <span
+              className="absolute top-1 bottom-1 rounded-full transition-all duration-300 ease-out pointer-events-none"
+              style={{
+                left: indicator.left,
+                width: indicator.width,
+                background: "var(--gold-cream)",
+                boxShadow: "0 0 14px rgba(232,213,176,0.4)",
+              }}
+            />
+          </div>
         </div>
       </div>
 

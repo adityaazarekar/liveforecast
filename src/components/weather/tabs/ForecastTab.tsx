@@ -65,53 +65,49 @@ export function ForecastTab({ data }: { data: WeatherData }) {
         <div className="space-y-2">
           {days.map((d, i) => {
             const date = new Date((d.dt + data.city.tz) * 1000);
-            const dayName = i === 0 ? "Today" : date.toLocaleDateString("en-US", { weekday: "long", timeZone: "UTC" });
+            const dayName = i === 0 ? "Today" : date.toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" });
             const popPct = Math.round(d.pop * 100);
             return (
               <div
                 key={d.dt}
-                className="glass-soft glass-hover p-4 grid grid-cols-12 items-center gap-3 transition-all"
+                className="glass-soft glass-hover flex items-center gap-2 sm:gap-3 px-3 py-3 transition-all"
                 style={{
                   animation: `fade-up 0.5s ${i * 0.05}s var(--ease-luxury) both`,
                   borderLeft: i === 0 ? `2px solid var(--gold-cream)` : "2px solid transparent",
+                  borderRadius: 12,
                 }}
               >
-                <div className="col-span-3">
-                  <div className="text-base" style={{ color: i === 0 ? "var(--gold-cream)" : "rgba(255,255,255,0.92)", fontFamily: "var(--font-display)" }}>
+                {/* Day name */}
+                <div className="flex flex-col min-w-[42px] sm:min-w-[72px]">
+                  <div className="text-sm sm:text-base" style={{ color: i === 0 ? "var(--gold-cream)" : "rgba(255,255,255,0.92)", fontFamily: "var(--font-display)" }}>
                     {dayName}
                   </div>
-                  <div className="text-[14px] uppercase tracking-[0.15em]" style={{ color: "var(--slate-blue)" }}>
+                  <div className="text-[11px] sm:text-[13px] uppercase tracking-[0.12em]" style={{ color: "var(--slate-blue)" }}>
                     {date.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}
                   </div>
                 </div>
 
-                <div className="col-span-2 flex items-center gap-2">
-                  <AnimatedWeatherIcon id={d.weather.id} isDay={true} size={36} />
-                  <span className="text-[14px] capitalize hidden md:inline" style={{ color: "var(--slate-blue)" }}>
-                    {d.weather.description}
-                  </span>
-                </div>
+                {/* Icon */}
+                <AnimatedWeatherIcon id={d.weather.id} isDay={true} size={30} />
 
-                <div className="col-span-2 flex items-center gap-1 text-[15px]" style={{ color: "var(--sky)" }}>
-                  <CloudRain className="h-3 w-3" strokeWidth={1.6} />
+                {/* Rain */}
+                <div className="flex items-center gap-1 text-[13px]" style={{ color: "var(--sky)", minWidth: 36 }}>
+                  <CloudRain className="h-3 w-3 shrink-0" strokeWidth={1.6} />
                   <span className="num">{popPct}%</span>
                 </div>
 
-                <div className="col-span-5 flex items-center gap-3 justify-end">
-                  <span className="num text-sm" style={{ color: "var(--sky)" }}>{Math.round(d.min)}°</span>
-                  <div className="flex-1 max-w-[140px] h-1 rounded-full overflow-hidden relative"
-                    style={{ background: "rgba(255,255,255,0.06)" }}>
-                    <div
-                      className="absolute h-full rounded-full"
-                      style={{
-                        left: "0%",
-                        width: "100%",
-                        background: "linear-gradient(to right, var(--sky), var(--gold-cream), var(--coral))",
-                        opacity: 0.85,
-                      }}
-                    />
+                {/* Condition — hidden on very small */}
+                <span className="text-[12px] capitalize flex-1 min-w-0 hidden sm:block truncate" style={{ color: "var(--slate-blue)" }}>
+                  {d.weather.description}
+                </span>
+
+                {/* Temp range */}
+                <div className="flex items-center gap-2 ml-auto shrink-0">
+                  <span className="num text-xs sm:text-sm" style={{ color: "var(--sky)" }}>{Math.round(d.min)}°</span>
+                  <div className="w-12 sm:w-20 h-1 rounded-full overflow-hidden hidden xs:block" style={{ background: "rgba(255,255,255,0.06)" }}>
+                    <div className="h-full rounded-full" style={{ background: "linear-gradient(to right, var(--sky), var(--gold-cream), var(--coral))", opacity: 0.85 }} />
                   </div>
-                  <span className="num text-base" style={{ color: "var(--gold-cream)" }}>{Math.round(d.max)}°</span>
+                  <span className="num text-sm sm:text-base" style={{ color: "var(--gold-cream)" }}>{Math.round(d.max)}°</span>
                 </div>
               </div>
             );
