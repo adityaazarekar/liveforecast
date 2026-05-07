@@ -234,70 +234,78 @@ function Dashboard() {
       )}
 
       {/* Header */}
-      <header className="relative z-50 px-4 py-4 sm:px-6 sm:py-5 lg:px-10 lg:py-6">
-        {/* Row 1: Logo + Year */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div
-              className="h-3 w-3 rounded-full bg-[var(--cond)]"
-              style={{ boxShadow: "0 0 14px var(--cond)", animation: "breathe 2s ease-in-out infinite" }}
-            />
-            <span
-              className="text-white/95"
-              style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "18px", fontWeight: 500, letterSpacing: "0.25em" }}
-            >
-              FORECAST
-            </span>
-            <span
-              className="rounded-full bg-[var(--cond)] text-black"
-              style={{ padding: "2px 8px", fontFamily: "'DM Sans', sans-serif", fontSize: "9px", fontWeight: 600, letterSpacing: "0.15em" }}
-            >
-              NOW
-            </span>
+      <header className="relative z-50 flex flex-col gap-4 md:flex-row md:items-center md:justify-between px-4 py-4 sm:px-6 sm:py-5 lg:px-10 lg:py-6">
+        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+          {/* Top row on mobile: Logo + DateInfo (DateInfo hidden on very small screens) */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div
+                className="h-3 w-3 rounded-full bg-[var(--cond)]"
+                style={{ boxShadow: "0 0 14px var(--cond)", animation: "breathe 2s ease-in-out infinite" }}
+              />
+              <span
+                className="text-white/95"
+                style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "18px", fontWeight: 500, letterSpacing: "0.25em" }}
+              >
+                FORECAST
+              </span>
+              <span
+                className="rounded-full bg-[var(--cond)] text-black"
+                style={{ padding: "2px 8px", fontFamily: "'DM Sans', sans-serif", fontSize: "9px", fontWeight: 600, letterSpacing: "0.15em" }}
+              >
+                NOW
+              </span>
+            </div>
+            
+            <div className="flex md:hidden items-center gap-3 label-mini text-white/55">
+              <span className="num text-white/85">{new Date().getFullYear()}</span>
+            </div>
           </div>
-          <div className="hidden md:flex items-center gap-3 label-mini text-white/55">
-            <span style={{ textTransform: "uppercase", letterSpacing: "0.2em" }}>
-              {sky.mode.replace("-", " ")}
-            </span>
-            <span className="h-1 w-1 rounded-full bg-white/30" />
-            <span className="num text-white/85">{new Date().getFullYear()}</span>
+
+          {/* Bottom row on mobile, inline on PC: Tabs + Search */}
+          <div className="flex flex-wrap items-center gap-3">
+            <nav className="glass-soft flex items-center gap-1 p-1">
+              {([
+                { id: "dashboard", label: "Dashboard" },
+                { id: "map", label: "World Map" },
+              ] as const).map((t) => (
+                <button
+                  key={t.id}
+                  onClick={() => setTab(t.id)}
+                  className={`relative rounded-full px-4 py-1.5 transition-all duration-300 ${
+                    tab === t.id ? "text-black" : "text-white/55 hover:text-white/85"
+                  }`}
+                  style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 500, letterSpacing: "0.18em", textTransform: "uppercase" }}
+                >
+                  {tab === t.id && (
+                    <motion.span
+                      layoutId="tab-pill"
+                      className="absolute inset-0 rounded-full bg-[var(--cond)]"
+                      style={{ boxShadow: "0 0 12px rgba(245,158,11,0.35)" }}
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{t.label}</span>
+                </button>
+              ))}
+            </nav>
+
+            {tab === "dashboard" && (
+              <CitySearch
+                current={`${data.city.name}, ${data.city.country}`}
+                onSelect={handleSelect}
+              />
+            )}
           </div>
         </div>
 
-        {/* Row 2: Tabs + Search (wraps cleanly on mobile) */}
-        <div className="mt-3 flex flex-wrap items-center gap-3">
-          <nav className="glass-soft flex items-center gap-1 p-1">
-            {([
-              { id: "dashboard", label: "Dashboard" },
-              { id: "map", label: "World Map" },
-            ] as const).map((t) => (
-              <button
-                key={t.id}
-                onClick={() => setTab(t.id)}
-                className={`relative rounded-full px-4 py-1.5 transition-all duration-300 ${
-                  tab === t.id ? "text-black" : "text-white/55 hover:text-white/85"
-                }`}
-                style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 500, letterSpacing: "0.18em", textTransform: "uppercase" }}
-              >
-                {tab === t.id && (
-                  <motion.span
-                    layoutId="tab-pill"
-                    className="absolute inset-0 rounded-full bg-[var(--cond)]"
-                    style={{ boxShadow: "0 0 12px rgba(245,158,11,0.35)" }}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{t.label}</span>
-              </button>
-            ))}
-          </nav>
-
-          {tab === "dashboard" && (
-            <CitySearch
-              current={`${data.city.name}, ${data.city.country}`}
-              onSelect={handleSelect}
-            />
-          )}
+        {/* Date Info on PC */}
+        <div className="hidden md:flex items-center gap-3 label-mini text-white/55">
+          <span style={{ textTransform: "uppercase", letterSpacing: "0.2em" }}>
+            {sky.mode.replace("-", " ")}
+          </span>
+          <span className="h-1 w-1 rounded-full bg-white/30" />
+          <span className="num text-white/85">{new Date().getFullYear()}</span>
         </div>
       </header>
 
