@@ -1,5 +1,6 @@
-# Aeron Weather Dashboard
+# NowForecast Dashboard
 
-🌟 **Live Demo:** [https://liveforecast.vercel.app/](https://liveforecast.vercel.app/)
+🌟 **Live Demo:** [https://nowforecast.vercel.app/](https://nowforecast.vercel.app/)
 
 A modern, dynamic weather dashboard built with React, TanStack Start, and Vite. Features interactive weather forecasting, radar, and insights.
+

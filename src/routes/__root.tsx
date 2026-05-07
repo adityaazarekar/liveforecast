@@ -30,14 +30,14 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Aether — Cinematic Weather Dashboard" },
+      { title: "NowForecast — Cinematic Weather Dashboard" },
       { name: "description", content: "A cinematic glassmorphism weather dashboard with live forecasts, AQI and hourly insights." },
-      { name: "author", content: "Aether" },
-      { property: "og:title", content: "Aether — Cinematic Weather Dashboard" },
+      { name: "author", content: "NowForecast" },
+      { property: "og:title", content: "NowForecast — Cinematic Weather Dashboard" },
       { property: "og:description", content: "A cinematic glassmorphism weather dashboard with live forecasts, AQI and hourly insights." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@nowforecast" },
     ],
     links: [
       {
