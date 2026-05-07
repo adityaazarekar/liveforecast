@@ -1,0 +1,20 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/client",
+  "framework": null,
+  "functions": {
+    "api/server.js": {
+      "includeFiles": "dist/server/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/_server/:path*",
+      "destination": "/api/server"
+    },
+    {
+      "source": "/((?!assets/).*)",
+      "destination": "/api/server"
+    }
+  ]
+}
