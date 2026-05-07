@@ -32,7 +32,7 @@ export function CenterPanel({ data, isDay }: { data: WeatherData; isDay: boolean
   return (
     <div className="flex h-full flex-col gap-7 stagger">
       {/* HERO city + live time */}
-      <CityHero name={data.city.name} country={data.city.country} tz={data.city.tz} />
+      <CityHero name={data.city.name} country={data.city.country} tz={data.city.tz} temp={data.current.temp} />
 
       {/* Big condition + animated icon */}
       <div className="flex items-start justify-between gap-3 pl-1">
