@@ -492,3 +492,38 @@ html, body {
   transform: translateY(0);
   transition: opacity 400ms var(--ease-luxury), transform 400ms var(--ease-luxury);
 }
+
+/* ─── Mobile responsive overrides ─── */
+@media (max-width: 640px) {
+  /* Prevent any panel from overflowing horizontally */
+  .glass, .glass-soft {
+    min-width: 0 !important;
+  }
+
+  /* Scale down large mono numbers in stat cards & panels */
+  .stat-card .num {
+    font-size: clamp(28px, 9vw, 45px) !important;
+  }
+
+  /* Sunrise/sunset times — smaller on mobile */
+  [class*="sunrise"] .num,
+  [class*="sunset"] .num {
+    font-size: 18px !important;
+  }
+
+  /* Wind speed display */
+  [class*="wind"] .num {
+    font-size: 20px !important;
+  }
+
+  /* Disable parallax / float animations on touch devices to avoid jank */
+  .animate-float {
+    animation: none !important;
+  }
+
+  /* Reduce padding on stat cards */
+  .stat-card {
+    padding: 12px !important;
+    min-height: 80px !important;
+  }
+}

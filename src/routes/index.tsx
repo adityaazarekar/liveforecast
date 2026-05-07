@@ -234,8 +234,9 @@ function Dashboard() {
       )}
 
       {/* Header */}
-      <header className="relative z-50 flex flex-wrap items-center justify-between gap-4 px-6 py-5 lg:px-10 lg:py-6">
-        <div className="flex flex-wrap items-center gap-6">
+      <header className="relative z-50 px-4 py-4 sm:px-6 sm:py-5 lg:px-10 lg:py-6">
+        {/* Row 1: Logo + Year */}
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div
               className="h-3 w-3 rounded-full bg-[var(--cond)]"
@@ -254,8 +255,17 @@ function Dashboard() {
               NOW
             </span>
           </div>
+          <div className="hidden md:flex items-center gap-3 label-mini text-white/55">
+            <span style={{ textTransform: "uppercase", letterSpacing: "0.2em" }}>
+              {sky.mode.replace("-", " ")}
+            </span>
+            <span className="h-1 w-1 rounded-full bg-white/30" />
+            <span className="num text-white/85">{new Date().getFullYear()}</span>
+          </div>
+        </div>
 
-          {/* Tabs */}
+        {/* Row 2: Tabs + Search (wraps cleanly on mobile) */}
+        <div className="mt-3 flex flex-wrap items-center gap-3">
           <nav className="glass-soft flex items-center gap-1 p-1">
             {([
               { id: "dashboard", label: "Dashboard" },
@@ -289,18 +299,9 @@ function Dashboard() {
             />
           )}
         </div>
-        <div className="flex items-center gap-3">
-          <div className="hidden md:flex items-center gap-3 label-mini text-white/55">
-            <span style={{ textTransform: "uppercase", letterSpacing: "0.2em" }}>
-              {sky.mode.replace("-", " ")}
-            </span>
-            <span className="h-1 w-1 rounded-full bg-white/30" />
-            <span className="num text-white/85">{new Date().getFullYear()}</span>
-          </div>
-        </div>
       </header>
 
-      <main className="relative z-10 px-6 pb-10 lg:px-10">
+      <main className="relative z-10 px-4 pb-10 sm:px-6 lg:px-10">
         <AnimatePresence mode="wait">
           {tab === "dashboard" ? (
             <motion.div
@@ -311,36 +312,37 @@ function Dashboard() {
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="mx-auto grid max-w-[1640px] grid-cols-1 gap-4 lg:grid-cols-12"
             >
+              {/* On mobile: Center first, then Left, then Right */}
               <section
-                className="glass glass-hover lg:col-span-3 min-h-[560px]"
-                style={{ animation: "fade-up 0.9s 200ms cubic-bezier(0.22,1,0.36,1) both", padding: 24, minWidth: 340 }}
-              >
-                <LeftPanel data={data} isDay={isDay} />
-              </section>
-
-              <section
-                className="glass glass-hover lg:col-span-6 min-h-[560px]"
-                style={{ animation: "fade-up 0.9s 350ms cubic-bezier(0.22,1,0.36,1) both", padding: 24, minWidth: 0 }}
+                className="glass glass-hover order-1 lg:order-2 lg:col-span-6"
+                style={{ animation: "fade-up 0.9s 350ms cubic-bezier(0.22,1,0.36,1) both", padding: 20 }}
               >
                 <CenterPanel data={data} isDay={isDay} />
               </section>
 
               <section
-                className="lg:col-span-3 min-h-[560px]"
-                style={{ animation: "fade-up 0.9s 500ms cubic-bezier(0.22,1,0.36,1) both", minWidth: 340 }}
+                className="glass glass-hover order-2 lg:order-1 lg:col-span-3"
+                style={{ animation: "fade-up 0.9s 200ms cubic-bezier(0.22,1,0.36,1) both", padding: 20 }}
+              >
+                <LeftPanel data={data} isDay={isDay} />
+              </section>
+
+              <section
+                className="order-3 lg:col-span-3"
+                style={{ animation: "fade-up 0.9s 500ms cubic-bezier(0.22,1,0.36,1) both" }}
               >
                 <RightPanel data={data} />
               </section>
 
               <section
-                className="lg:col-span-12"
+                className="order-4 lg:col-span-12"
                 style={{ animation: "fade-up 0.9s 700ms cubic-bezier(0.22,1,0.36,1) both" }}
               >
                 <HourlyChart data={data} />
               </section>
 
               <section
-                className="lg:col-span-12"
+                className="order-5 lg:col-span-12"
                 style={{ animation: "fade-up 0.9s 1000ms cubic-bezier(0.22,1,0.36,1) both" }}
               >
                 <InsightsTabs data={data} />

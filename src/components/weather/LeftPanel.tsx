@@ -22,17 +22,17 @@ export function LeftPanel({ data, isDay }: { data: WeatherData; isDay: boolean }
           <CountUp
             value={Math.round(current.temp)}
             className="num text-white"
-            style={{ fontSize: 134, fontWeight: 300, lineHeight: 1, letterSpacing: "-0.04em" }}
+            style={{ fontSize: "clamp(72px, 20vw, 134px)", fontWeight: 300, lineHeight: 1, letterSpacing: "-0.04em" }}
           />
-          <span className="num text-white/60 mt-2" style={{ fontSize: 50 }}>°</span>
-          <div className="ml-2 mt-3 flex flex-col" style={{ fontSize: 18, letterSpacing: "0.12em", textTransform: "uppercase", color: "#8B9DB5" }}>
+          <span className="num text-white/60 mt-2" style={{ fontSize: "clamp(28px, 7vw, 50px)" }}>°</span>
+          <div className="ml-2 mt-3 flex flex-col" style={{ fontSize: 14, letterSpacing: "0.12em", textTransform: "uppercase", color: "#8B9DB5" }}>
             <span>feels</span>
-            <span className="num text-white/90 mt-0.5" style={{ fontSize: 45, fontWeight: 300, letterSpacing: "normal" }}>
+            <span className="num text-white/90 mt-0.5" style={{ fontSize: "clamp(24px, 6vw, 45px)", fontWeight: 300, letterSpacing: "normal" }}>
               {Math.round(current.feels)}°
             </span>
           </div>
         </div>
-        <div style={{ fontSize: 18, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8B9DB5" }}>
+        <div style={{ fontSize: 14, letterSpacing: "0.15em", textTransform: "uppercase", color: "#8B9DB5" }}>
           {data.city.name} · {data.city.country}
         </div>
       </div>

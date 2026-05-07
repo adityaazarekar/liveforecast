@@ -35,18 +35,18 @@ export function CenterPanel({ data, isDay }: { data: WeatherData; isDay: boolean
       <CityHero name={data.city.name} country={data.city.country} tz={data.city.tz} />
 
       {/* Big condition + animated icon */}
-      <div className="flex items-start justify-between gap-4 pl-1">
+      <div className="flex items-start justify-between gap-3 pl-1">
         <div className="flex-1 min-w-0">
-          <div style={{ fontSize: 17, letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", marginBottom: 10 }}>
+          <div style={{ fontSize: 13, letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", marginBottom: 8 }}>
             Weather Forecast
           </div>
           <h2
             className="text-display text-white"
             style={{
               fontFamily: "'Playfair Display', serif",
-              fontSize: 95,
+              fontSize: "clamp(44px, 10vw, 95px)",
               fontWeight: 300,
-              lineHeight: 1.02,
+              lineHeight: 1.05,
               letterSpacing: "-0.02em",
             }}
           >
@@ -61,10 +61,10 @@ export function CenterPanel({ data, isDay }: { data: WeatherData; isDay: boolean
           {mood && (
             <p
               key={mood}
-              className="mt-3 text-italic max-w-xl animate-fade-in"
+              className="mt-2 text-italic max-w-xl animate-fade-in"
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: 22,
+                fontSize: "clamp(14px, 2.5vw, 22px)",
                 fontWeight: 400,
                 lineHeight: 1.7,
                 color: "rgba(255,255,255,0.72)",
@@ -79,8 +79,8 @@ export function CenterPanel({ data, isDay }: { data: WeatherData; isDay: boolean
             </p>
           )}
         </div>
-        <div className="shrink-0 animate-float">
-          <AnimatedWeatherIcon id={data.current.weather.id} isDay={isDay} size={160} />
+        <div className="shrink-0 animate-float hidden sm:block">
+          <AnimatedWeatherIcon id={data.current.weather.id} isDay={isDay} size={120} />
         </div>
       </div>
 
